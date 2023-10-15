@@ -13,7 +13,7 @@
         </div>
         <div class="field col-12 md:col-12">
             <label for="Imagem">Imagem:</label>        
-            <input type="file" class="file-upload" name="Imagem" >
+            <input type="file" class="file-upload" name="Arquivo" formControlName="Arquivo" (change)="enviarArquivo($event)">
         </div>
         <div class="field col-12 md:col-12">
             <label for="dataCadastro">Data Cadastro:</label>

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { OutletContext } from '@angular/router';
 import { AdminService } from '../admin.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-receita-adicionar',
@@ -15,7 +16,11 @@ export class ReceitaComponent implements OnInit {
   modoPreparo:string|null=null;
   dataCadastro:Date|null=null;
 
-  constructor(private service:AdminService) { }
+  constructor(private service:AdminService, private fb : FormBuilder) { }
+
+  arquivoForm : FormGroup = this.fb.group({
+    arquivoFisico : new FormControl<any>(null)
+  })
 
   @Output()
   onClose = new EventEmitter();
@@ -33,6 +38,13 @@ export class ReceitaComponent implements OnInit {
       this.onClose.emit();
     });
     this.alert = true;
+  }
+
+  enviarArquivo(event : any){
+    if(event.target.file.lenght > 0){
+      const file = event.target.files[0];
+      this.arquivoForm.controls.arquivoFisico.setValue(file);
+    }
   }
 
   atualizar(item:any){

@@ -16,6 +16,10 @@ export class AdminService {
     return this.http.get(url);
   }
 
+  public enviarArquivo(file : any){
+    var url = 
+  }
+
   public enviar(id:number|null,nome:string|null,modoPreparo:string|null ,dataCadastro:Date|null):any {
     var url = environment.urlApi+'/Receita/Adicionar';
 
