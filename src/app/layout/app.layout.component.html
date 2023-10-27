@@ -2,7 +2,7 @@
 styleClass="custom-spinner sticky-top  fs-5 notificacao" strokeWidth="8" fill="var(--surface-ground)"
 animationDuration=".6s" *ngIf="isLoading">
 </p-progressSpinner>
-<p-toast life="15000" closable="true"></p-toast>
+
 
 <div class=" title">
   <div class="container text-center mt-5">
@@ -35,7 +35,7 @@ animationDuration=".6s" *ngIf="isLoading">
             </li>
           </ul>
           <form class="d-flex" role="log">
-            <button type="button" class="btn btn-outline-primary me-2">Login</button>
+            <button type="button" class="btn btn-outline-primary me-2" (click)="login()" >Login</button>
             <a href="#/admin/usuarioadicionar"><button type="button" class="btn btn-primary">Sign-up</button></a>
           </form>
         </div>
@@ -45,6 +45,10 @@ animationDuration=".6s" *ngIf="isLoading">
   </div>
   </div>
   <router-outlet></router-outlet>
+<div>
+  <!-- <p-toast life="25000" closable="true"></p-toast> -->
+  <p-messages life="25000" ></p-messages>
+</div>
 </div><br>
 <footer class="container-fluid text-center">
   <p>Cris Cakes</p>

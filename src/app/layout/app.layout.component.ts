@@ -3,16 +3,18 @@ import { ActivatedRoute, ActivationEnd, NavigationEnd, Router } from '@angular/r
 import { filter, map, Subject, Subscription } from 'rxjs';
 import { LayoutService } from "./service/app.layout.service";
 import { MenuItem } from 'primeng/api';
-import { AuthenticationService } from '../modules/shared/authentication/authentication.service';
+import { AuthenticationService } from '../modules/private/admin/authentication/service/authentication.service';
 import { Title } from '@angular/platform-browser';
 import { LoadingService } from '../modules/shared/loading-service';
 import { MenuService } from './app.menu.service';
+import { LoginComponent } from '../modules/private/admin/authentication/components/login/login.component';
 
 @Component({
     selector: 'app-layout',
     templateUrl: './app.layout.component.html'
 })
 export class AppLayoutComponent implements OnDestroy, OnInit {
+
     items!: MenuItem[];
     loading: Subject<boolean> = this.loadingService.isLoading;
     isLoading: boolean = false
@@ -31,9 +33,8 @@ export class AppLayoutComponent implements OnDestroy, OnInit {
     observableBreadCrumb?: Subscription;
 
     constructor(public layoutService: LayoutService,
-        public renderer: Renderer2,
-        public router: Router,
-        private authenticationService: AuthenticationService,
+        private renderer: Renderer2,
+        private router: Router,
         private loadingService: LoadingService,
         private titleService: Title,
         private activatedRoute: ActivatedRoute,
@@ -115,7 +116,7 @@ export class AppLayoutComponent implements OnDestroy, OnInit {
             this.hideMenu();
             this.hideProfileMenu();
         });
-
+        
     }
 
     searchTree(element: any, link: any): any {
@@ -188,6 +189,10 @@ export class AppLayoutComponent implements OnDestroy, OnInit {
             'p-input-filled': this.layoutService.config.inputStyle === 'filled',
             'p-ripple-disabled': !this.layoutService.config.ripple
         }
+    }
+
+    login(){
+        this.router.navigate(["/login"])
     }
 
     ngOnDestroy() {

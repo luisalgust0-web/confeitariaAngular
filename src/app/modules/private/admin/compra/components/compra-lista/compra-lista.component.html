@@ -1,0 +1,44 @@
+<div class="card pt-3">
+    <div class="grid p-fluid mt-0" *ngIf="!cadastroVisivel">
+        <div class="col-9 md:col-10"></div>
+        <div class="col-3 md:col-2">
+            <button class="btn btn-primary" (click)="novoCadastro()">
+                <i class="pi pi-plus pr-1"></i>
+                <span>Nova Compra</span>
+            </button>
+        </div>
+        <div class="field col-12 md:col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Ingrediente</th>
+                        <th>Unidade Medida</th>
+                        <th>Quantidade</th>
+                        <th>Valor</th>
+                        <th>dataCompra</th>
+                        <th>&nbsp;</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let compras of itens;">
+                        <td>{{compras.id}}</td>
+                        <td>{{compras.ingredienteId}}</td>
+                        <td>{{compras.unidadeMedidaId}}</td>
+                        <td>{{compras.quantidade}}</td>
+                        <td>{{compras.valor}}</td>
+                        <td>{{compras.dataCompra}}</td>
+                        <td><button class="btn btn-sm btn-secondary text-light" aria-pressed="true" role="button"
+                                (click)="selecionar(compras)"><i class="pi pi-file-edit"></i></button></td>
+                        <td><button class="btn btn-danger text-light" aria-pressed="true" role="button"
+                                (click)="excluir(compras)">Excluir</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="field col-12 md:col-12">
+        <app-compra-adicionar *ngIf="cadastroVisivel" (onClose)="fechar()"></app-compra-adicionar>
+    </div>
+</div>

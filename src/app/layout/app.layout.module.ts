@@ -15,6 +15,7 @@ import { MessageService } from 'primeng/api';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import {MenuItem} from 'primeng/api';
         BrowserAnimationsModule,
         SidebarModule,
         BadgeModule,
+        MessagesModule,
         RippleModule,
         RouterModule,
         OverlayPanelModule,

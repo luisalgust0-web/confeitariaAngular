@@ -11,12 +11,12 @@ import { HttpErrorInterceptor } from './modules/shared/interceptors/http-error-i
 import { MessageInterceptor } from './modules/shared/interceptors/message.interceptor';
 import { LoadingInterceptor } from './modules/shared/interceptors/loading.interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
-import { NOME_TOKEN } from './modules/shared/authentication/authentication.service';
+import { NOME_TOKEN } from './modules/private/admin/authentication/service/authentication.service';
 import { environment } from 'src/environments/environment';
 import localePT from '@angular/common/locales/pt';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BasicAuthenticationInterceptor } from './modules/shared/interceptors/basic-authentication.interceptor';
-import { AutenticacaoModelView } from './modules/shared/authentication/interfaces';
+import { AutenticacaoModelView } from './modules/private/admin/authentication/interface/interfaces';
 
 registerLocaleData(localePT);
 
@@ -31,7 +31,8 @@ registerLocaleData(localePT);
         AppLayoutModule, 
         DashboardModule,
         RouterModule,
-        FormsModule, ReactiveFormsModule,
+        FormsModule, 
+        ReactiveFormsModule,
     ],
     providers: [
       DatePipe,

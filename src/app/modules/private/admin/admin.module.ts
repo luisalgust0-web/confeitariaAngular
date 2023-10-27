@@ -1,22 +1,24 @@
 import { Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
-import { ReceitaListaComponent } from './receita-lista/receita-lista.component';
+import { ReceitaListaComponent } from './receita/components/receita-lista/receita-lista.component';
 import { ComponentesModule } from '../../componentes.module';
-import { ReceitaComponent } from './receita-adicionar/receita-adicionar.component';
-import { IngredienteListaComponent } from './ingrediente-lista/ingrediente-lista.component';
-import { UnidademedidalistaComponent } from './unidademedida-lista/unidademedida-lista.component';
-import { UnidademedidaAdicionarComponent } from './unidademedida-adicionar/unidademedida-adicionar.component';
-import { IngredienteAdicionarComponent } from './ingrediente-adicionar/ingrediente-adicionar.component';
-import { ReceitaingredienteAdicionarComponent } from './receitaingrediente-adicionar/receitaingrediente-adicionar.component';
-import { ReceitaingredienteListaComponent } from './receitaingrediente-lista/receitaingrediente-lista.component';
-import { CompraListaComponent } from './compra-lista/compra-lista.component';
-import { CompraAdicionarComponent } from './compra-adicionar/compra-adicionar.component';
+import { ReceitaComponent } from './receita/components/receita-adicionar/receita-adicionar.component';
+import { IngredienteListaComponent } from './ingrediente/components/ingrediente-lista/ingrediente-lista.component';
+import { UnidademedidalistaComponent } from './unidadeMedida/components/unidademedida-lista/unidademedida-lista.component';
+import { UnidademedidaAdicionarComponent } from './unidadeMedida/components/unidademedida-adicionar/unidademedida-adicionar.component';
+import { IngredienteAdicionarComponent } from './ingrediente/components/ingrediente-adicionar/ingrediente-adicionar.component';
+import { ReceitaingredienteAdicionarComponent } from './receitaIngrediente/components/receitaingrediente-adicionar/receitaingrediente-adicionar.component';
+import { ReceitaingredienteListaComponent } from './receitaIngrediente/components/receitaingrediente-lista/receitaingrediente-lista.component';
+import { CompraListaComponent } from './compra/components/compra-lista/compra-lista.component';
+import { CompraAdicionarComponent } from './compra/components/compra-adicionar/compra-adicionar.component';
 import {DialogModule} from 'primeng/dialog';
-import { UsuarioAdicionarComponent } from './usuario-adicionar/usuario-adicionar.component';
-import { RotinaDisparoComponent } from './rotina-disparo/rotina-disparo.component';
-import { TemplateEmailComponent } from './template-email/template-email.component';
-import { TemplateEmailAdicionarComponent } from './template-email-adicionar/template-email-adicionar.component';
+import { UsuarioAdicionarComponent } from './authentication/components/newUser/usuario-adicionar.component';
+import { RotinaDisparoComponent } from './rotinaDisparo/components/rotina-disparo/rotina-disparo.component';
+import { TemplateEmailComponent } from './templateEmail/components/template-email/template-email.component';
+import { TemplateEmailAdicionarComponent } from './templateEmail/components/template-email-adicionar/template-email-adicionar.component';
+import { LoginComponent } from './authentication/components/login/login.component';
+
 
 
 
@@ -32,6 +34,7 @@ import { TemplateEmailAdicionarComponent } from './template-email-adicionar/temp
     ReceitaingredienteListaComponent,
     CompraListaComponent,
     CompraAdicionarComponent,
+    LoginComponent,
     UsuarioAdicionarComponent,
     RotinaDisparoComponent,
     TemplateEmailComponent,

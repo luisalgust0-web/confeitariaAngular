@@ -8,6 +8,6 @@ import { PrivateRoutingModule } from './private-routing.module';
   imports: [
     CommonModule,
     PrivateRoutingModule
-  ]
+    ]
 })
 export class PrivateModule { }

@@ -3,7 +3,7 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable, throwError } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
 import {MessageService} from 'primeng/api';
-import { AuthenticationService } from '../authentication/authentication.service';
+import { AuthenticationService } from '../../private/admin/authentication/service/authentication.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable()

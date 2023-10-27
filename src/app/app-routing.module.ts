@@ -3,8 +3,8 @@ import { Component, NgModule } from '@angular/core';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { DashboardComponent } from './demo/components/dashboard/dashboard.component';
 import { RooteGuard } from './roote.guard';
-import { LoginComponent } from './modules/shared/login/login.component';
-import { IngredienteListaComponent } from './modules/private/admin/ingrediente-lista/ingrediente-lista.component';
+import { LoginComponent } from './modules/private/admin/authentication/components/login/login.component';
+
 
 @NgModule({
     imports: [

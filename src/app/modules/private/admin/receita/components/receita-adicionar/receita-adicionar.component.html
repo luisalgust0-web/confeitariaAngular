@@ -1,0 +1,25 @@
+<div class="card pt-3">
+    <div class="grid p-fluid mt-0">
+        <div class="field col-12 md:col-12">
+            <label for="nome">Nome:</label>
+            <input class="form-control" type="text" name="nome" value="nome" id="nome" [(ngModel)]="nome" #atrNome="ngModel" required/> 
+            <div *ngIf="atrNome.invalid && alert" class="alert alert-danger alert-dismissible fade show">nome obrigatorio</div>
+        </div>
+        <div class="field col-12 md:col-12">
+            <label for="modoPreparo">Modo Preparo:</label>
+            <!-- <input class="form-control" type="text" name="modoPreparo" id="modoPreparo" [(ngModel)]="modoPreparo" #atrModo="ngModel" required/>  -->
+            <textarea rows="5" class="form-control" name="modoPreparo" id="modoPreparo" [(ngModel)]="modoPreparo" #atrModo="ngModel"></textarea>
+            <div *ngIf="atrModo.invalid && alert" class="alert alert-danger alert-dismissible fade show">modo de Preparo obrigatorio</div>
+        </div>
+        <div class="field col-12 md:col-12" [formGroup]="fileForm">
+            <label for="Imagem">Imagem:</label>        
+            <input type="file" class="file-upload" name="file" formControlName="arquivoFisico" (change)="uploadImage($event)">
+        </div>
+        <div class="field col-12 md:col-12">
+            <label for="dataCadastro">Data Cadastro:</label>
+            <label>{{dataCadastro|date:"dd/MM/yyyy"}}</label>
+        </div>
+        <div class="field col-1"><button class="btn btn-primary" (click)="enviar()">Salvar</button></div>
+        <div class="field col-11"><button class="btn btn-primary" (click)="voltar()">Voltar</button></div>
+    </div>
+</div>

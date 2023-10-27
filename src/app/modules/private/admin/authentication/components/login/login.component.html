@@ -1,0 +1,25 @@
+<div class="card pt-3">
+    <div class="grid p-fluid mt-0" [formGroup]="form">
+        <div class="field col-2"></div>
+        <div class="field col-8">
+            <label for="nome">Nome:</label>
+            <input class="form-control" type="text" name="nome" value="nome" id="nome" formControlName="nome" required/> 
+            <div *ngIf="nomeValidator"></div>
+        </div>
+        <div class="field col-2"></div>
+        <div class="field col-2"></div>
+        <div class="field col-8">
+            <label for="nome">Senha:</label>
+            <input class="form-control" type="password" name="nome" value="nome" id="senha" formControlName="senha" required/> 
+        </div>
+        <div class="field col-2"></div>
+        <div class="col-10"></div>
+        <div class="col-2">
+            <button class="btn btn-primary" (click)="limpar()">Limpar</button>
+            <button class="btn btn-primary ml-2" (click)="logar()">Entrar</button>
+        </div>
+    </div>
+</div>
+<div>
+    <app-usuario-adicionar *ngIf="novoUsuarioBool"></app-usuario-adicionar>
+</div>

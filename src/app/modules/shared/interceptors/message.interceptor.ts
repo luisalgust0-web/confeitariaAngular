@@ -19,11 +19,11 @@ export class MessageInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       tap((evt:any) => {
         if (evt instanceof HttpResponse) {
-          if(evt.body && evt.body.message){
-              if(evt.body.codeResponse == JsonMessageCode.Error) this.msgService.add({severity:'warn', summary: 'Erro', detail: evt.body.message});
-              else if(evt.body.codeResponse == JsonMessageCode.Success) this.msgService.add({severity:'success', detail: evt.body.message});
-              else if(evt.body.codeResponse == JsonMessageCode.UnknowError) this.msgService.add({severity:'error', summary: 'Erro', detail: evt.body.message});
-              else this.msgService.add({severity:'info', summary: 'Erro', detail: evt.body.message});
+          if(evt.body && evt.body._message){
+              if(evt.body._severity == JsonMessageCode.Error) this.msgService.add({severity:'error', summary: 'Erro', detail: evt.body._message});
+              else if(evt.body.codeResponse == JsonMessageCode.Success) this.msgService.add({severity:'success', detail: evt.body._message});
+              else if(evt.body._severity == JsonMessageCode.UnknowError) this.msgService.add({severity:'warn', summary: 'Erro', detail: evt.body._message});
+              else this.msgService.add({severity:'info', summary: 'Erro', detail: evt.body._message});
           }
         }
       })

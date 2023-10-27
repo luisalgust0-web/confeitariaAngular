@@ -1,0 +1,38 @@
+<div class="card pt-3">
+    <div class="grid p-fluid mt-0" *ngIf="!cadastroVisivel">
+        <div class="col-9 md:col-10"></div>
+        <div class="col-3 md:col-2">
+            <button class="btn btn-primary" (click)="novo()">
+                <i class="pi pi-plus pr-1"></i>
+                <span>Nova Unidade de Medida</span>
+            </button>
+        </div>
+        <div class="field col-12 md:col-12" >
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Sigla</th>
+                        <th>Data Cadastro</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr *ngFor="let unidadeMedida of itens;">
+                        <td>{{unidadeMedida.id}}</td>
+                        <td>{{unidadeMedida.nome}}</td>
+                        <td>{{unidadeMedida.sigla}}</td>
+                        <td>{{unidadeMedida.dataCadastro}}</td>
+                        <td><button class="btn btn-sm btn-secondary text-light ml-1" aria-pressed="true" role="button" (click)="selecionar(unidadeMedida)">
+                            <i class="pi pi-file-edit"></i>
+                        </button></td>
+                        <td><button class="btn btn-danger text-light" aria-pressed="true" role="button" (click)="excluir(unidadeMedida)">Excluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="field col-12 md:col-12"><app-unidademedida-adicionar *ngIf="cadastroVisivel" (onClose)="fechar()"></app-unidademedida-adicionar></div>
+</div>
