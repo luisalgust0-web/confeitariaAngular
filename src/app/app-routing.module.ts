@@ -1,9 +1,8 @@
 import { RouterModule } from '@angular/router';
-import { Component, NgModule } from '@angular/core';
+import {  NgModule } from '@angular/core';
 import { AppLayoutComponent } from "./layout/app.layout.component";
-import { DashboardComponent } from './demo/components/dashboard/dashboard.component';
 import { RooteGuard } from './roote.guard';
-import { LoginComponent } from './modules/private/admin/authentication/components/login/login.component';
+import { LoginComponent } from 'src/app/modules/shared/authentication/components/login/login.component';
 
 
 @NgModule({

@@ -3,11 +3,11 @@ import { ActivatedRoute, ActivationEnd, NavigationEnd, Router } from '@angular/r
 import { filter, map, Subject, Subscription } from 'rxjs';
 import { LayoutService } from "./service/app.layout.service";
 import { MenuItem } from 'primeng/api';
-import { AuthenticationService } from '../modules/private/admin/authentication/service/authentication.service';
+import { AuthenticationService } from 'src/app/modules/shared/authentication/service/authentication.service';
 import { Title } from '@angular/platform-browser';
 import { LoadingService } from '../modules/shared/loading-service';
 import { MenuService } from './app.menu.service';
-import { LoginComponent } from '../modules/private/admin/authentication/components/login/login.component';
+import { LoginComponent } from 'src/app/modules/shared/authentication/components/login/login.component';
 
 @Component({
     selector: 'app-layout',

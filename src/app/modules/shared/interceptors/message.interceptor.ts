@@ -7,7 +7,7 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { defer, Observable, tap } from 'rxjs';
-import { JsonMessageCode } from '../models/Result';
+import { JsonMessageCode } from '../models/MessageResult';
 import {MessageService} from 'primeng/api';
 
 @Injectable()

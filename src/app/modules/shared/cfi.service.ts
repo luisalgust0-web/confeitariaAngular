@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Agencia, Contribuinte } from './cfi/models';
 import { Paginador } from './models/paginador';
-import { JsonResponse } from './models/Result';
+import { JsonResponse } from './models/MessageResult';
 
 @Injectable({
   providedIn: 'root'

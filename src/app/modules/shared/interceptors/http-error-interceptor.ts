@@ -3,7 +3,7 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable, throwError } from 'rxjs';
 import { catchError, shareReplay } from 'rxjs/operators';
 import {MessageService} from 'primeng/api';
-import { AuthenticationService } from '../../private/admin/authentication/service/authentication.service';
+import { AuthenticationService } from 'src/app/modules/shared/authentication/service/authentication.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -27,7 +27,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
                 return next.handle(request);
 
-            return next.handle(request);
         }));
     }
 

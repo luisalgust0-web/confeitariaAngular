@@ -20,7 +20,7 @@ import { RoundToggleBottonComponent } from './shared/round-toggle-botton/round-t
 import { CheckboxSNComponent } from './shared/checkbox-sn/checkbox-sn.component';
 import { ConfirmationService } from "primeng/api";
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import { LoginComponent } from './private/admin/authentication/components/login/login.component';
+import { LoginComponent } from 'src/app/modules/shared/authentication/components/login/login.component';
 import { MessagesModule } from 'primeng/messages';
 @NgModule({
   declarations: [  

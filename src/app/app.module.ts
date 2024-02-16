@@ -3,20 +3,14 @@ import { CommonModule, DatePipe, DecimalPipe, HashLocationStrategy, LocationStra
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppLayoutModule } from './layout/app.layout.module';
-import { DashboardModule } from './demo/components/dashboard/dashboard.module';
 import { RouterModule } from '@angular/router';
-import { ComponentesModule } from './modules/componentes.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorInterceptor } from './modules/shared/interceptors/http-error-interceptor';
 import { MessageInterceptor } from './modules/shared/interceptors/message.interceptor';
 import { LoadingInterceptor } from './modules/shared/interceptors/loading.interceptor';
-import { JwtModule } from '@auth0/angular-jwt';
-import { NOME_TOKEN } from './modules/private/admin/authentication/service/authentication.service';
-import { environment } from 'src/environments/environment';
 import localePT from '@angular/common/locales/pt';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BasicAuthenticationInterceptor } from './modules/shared/interceptors/basic-authentication.interceptor';
-import { AutenticacaoModelView } from './modules/private/admin/authentication/interface/interfaces';
 
 registerLocaleData(localePT);
 
@@ -29,7 +23,6 @@ registerLocaleData(localePT);
         CommonModule,
         AppRoutingModule,
         AppLayoutModule, 
-        DashboardModule,
         RouterModule,
         FormsModule, 
         ReactiveFormsModule,
