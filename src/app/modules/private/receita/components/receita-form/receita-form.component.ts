@@ -12,10 +12,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ReceitaFormComponent implements OnInit {
 
   alert = false;
-  id :number | null = null;
+  id :number | null= 0;
   nome: string | null = null;
   modoPreparo: string | null = null;
-  dataCadastro: Date | null = null;
+  dataCadastro: string | null = null;
 
   fileForm: FormGroup = this.fb.group({
     arquivoFisico: new FormControl<any>(null)
@@ -24,7 +24,7 @@ export class ReceitaFormComponent implements OnInit {
   constructor(private service: AdminService, private fb: FormBuilder, private messageService : MessageService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.dataCadastro = new Date();
+    this.dataCadastro = new Date().toISOString();
 
     const routeParams = this.route.snapshot.paramMap;
     this.id = routeParams.get('id') ? Number(routeParams.get('id')) : null;
@@ -33,6 +33,8 @@ export class ReceitaFormComponent implements OnInit {
       this.service.obterReceita(this.id).subscribe( (receita:any) => {
         this.definirReceitaValue(receita);
       } )
+    }else{
+      this.id = 0
     }
 
   }

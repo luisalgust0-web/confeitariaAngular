@@ -1,6 +1,14 @@
 <div class="card pt-3">
+
     <div class="grid p-fluid mt-0" >
-        <div class="field col-12 md:col-12" *ngIf="!cadastroVisivel">
+        <div class="col-9 md:col-10"></div>
+        <div class="col-3 md:col-2">
+            <button class="btn btn-primary" (click)="novoCadastro()">
+                <i class="pi pi-plus pr-1"></i>
+                <span>Novo Ingrediente</span>
+            </button>
+        </div>
+        <div class="field col-12 md:col-12" >
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -21,16 +29,17 @@
                         <td>{{receitaIngrediente.quantidade}}</td>
                         <td>{{receitaIngrediente.unidadeMedidaId}}</td>
                         <td>{{receitaIngrediente.dataCadastro}}</td>
-                        <td><button class="btn btn-sm btn-secondary text-light ml-1" aria-pressed="true" role="button" (click)="selecionar(receitaIngrediente)" >
+                        <td><button class="btn btn-sm btn-secondary text-light ml-1" aria-pressed="true" role="button" (click)="fechar()" >
                             <i class="pi pi-file-edit"></i>
                         </button></td>
-                        <td><button class="btn btn-danger text-light" aria-pressed="true" role="button" (click)="excluir(receitaIngrediente)" >Excluir</button>
+                        <td><button class="btn btn-danger text-light" aria-pressed="true" role="button" (click)="excluirReceitaIngrediente(receitaIngrediente.id)" >Excluir</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="filed col-12 md:col-12"><app-receitaingrediente-adicionar *ngIf="cadastroVisivel" (onClose)="fechar()"></app-receitaingrediente-adicionar></div>
+
+        <p-confirmDialog ></p-confirmDialog>
     </div>   
 </div>

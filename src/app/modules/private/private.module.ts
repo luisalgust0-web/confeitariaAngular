@@ -9,7 +9,7 @@ import { IngredienteFormComponent } from './ingrediente/components/ingrediente-f
 import { IngredienteListaComponent } from './ingrediente/components/ingrediente-lista/ingrediente-lista.component';
 import { ReceitaFormComponent } from './receita/components/receita-form/receita-form.component';
 import { ReceitaListaComponent } from './receita/components/receita-lista/receita-lista.component';
-import { ReceitaingredienteAdicionarComponent } from './receitaIngrediente/components/receitaingrediente-adicionar/receitaingrediente-adicionar.component';
+import { ReceitaingredienteFormComponent } from './receitaIngrediente/components/receitaingrediente-form/receitaingrediente-form.component';
 import { ReceitaingredienteListaComponent } from './receitaIngrediente/components/receitaingrediente-lista/receitaingrediente-lista.component';
 import { RotinaDisparoComponent } from './rotinaDisparo/components/rotina-disparo/rotina-disparo.component';
 import { TemplateEmailAdicionarComponent } from './templateEmail/components/template-email-adicionar/template-email-adicionar.component';
@@ -27,7 +27,7 @@ import { ComponentesModule } from '../componentes.module';
     UnidademedidalistaComponent,
     UnidademedidaAdicionarComponent,
     IngredienteFormComponent,
-    ReceitaingredienteAdicionarComponent,
+    ReceitaingredienteFormComponent,
     ReceitaingredienteListaComponent,
     CompraListaComponent,
     CompraAdicionarComponent,

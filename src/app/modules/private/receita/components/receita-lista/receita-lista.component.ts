@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class ReceitaListaComponent implements OnInit {
 
-  confirmarExclusao = false;
   receitas = [] as any[];
 
   constructor(
@@ -23,6 +22,7 @@ export class ReceitaListaComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+
     this.obterListaReceitas();
   }
 
@@ -36,8 +36,8 @@ export class ReceitaListaComponent implements OnInit {
     this.router.navigate(['Receita/inserir'])
   }
 
-  novoIngrediente(receita: any) {
-    console.log(receita);
+  receitaIngrediente(receitaId: number) {
+    this.router.navigate([`Receita/ReceitaIngrediente/${receitaId}`])
   }
 
   editarReceita(receitaId:number) {
@@ -67,6 +67,8 @@ export class ReceitaListaComponent implements OnInit {
 
 
   relatorio(item: any) {
-    this.service.obterReport(item.id);
+    this.service.obterReport(item.id).subscribe( (resp:any) => {
+      
+    });
   }
 }

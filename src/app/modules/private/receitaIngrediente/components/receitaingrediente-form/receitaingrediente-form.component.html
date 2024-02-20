@@ -1,11 +1,6 @@
 <div class="card pt-3">
     <div class="grid p-fluid mt-0">
         <div class="field col-12 md:col-12">
-            <h3>
-                <!-- {{receita.nome}} -->
-            </h3>
-        </div>
-        <div class="field col-12 md:col-12">
             <label for="ingredienteId">Ingrediente:</label>
             <select class="form-select" id="ingredienteId" name="ingredienteId" [(ngModel)]="ingredienteId" #atrIngrediente="ngModel" required>
                 <option *ngFor="let ingrediente of ingredienteItens" value="{{ingrediente.id}}">{{ingrediente.nome}}</option>
@@ -14,23 +9,22 @@
         </div>
         <div class="field col-12 md:col-12">
             <label for="receitaId">Receita:</label>
-            <select class="form-select" [disabled]="nomeDesabilitado" id="receitaId" name="receitaId" [(ngModel)]="receitaId" #atrReceita="ngModel" required>
-                <option *ngFor="let receita of receitaItens" value="{{receita.id}}">{{receita.nome}}</option>
+            <select class="form-select" readonly id="receitaId" name="receitaId" [(ngModel)]="receitaId" #atrReceita="ngModel" required>
+                <option *ngFor="let receita of receitaItens" value="{{receita.id}}" readonly>{{receita.nome}}</option>
             </select>
             <div class="alert alert-danger" *ngIf="atrReceita.invalid && alert">Receita obrigatoria</div>
         </div>
         <div class="field col-12 md:col-6">
             <label for="unidadeMedidaId">Unidade Medida:</label>
             <select class="form-select" id="unidadeMedidaId" name="unidadeMedidaId" [(ngModel)]="unidadeMedidaId" #atrUnidade="ngModel" required>
-                <option *ngFor="let unidadeMedida of unidadeItens" value="{{unidadeMedida.id}}" >{{unidadeMedida.nome}}</option>
+                <option *ngFor="let unidadeMedida of unidadeMedidaItens" value="{{unidadeMedida.id}}" >{{unidadeMedida.nome}}</option>
             </select>
             <div class="alert alert-danger" *ngIf="atrUnidade.invalid && alert">Unidade Medida obrigatoria</div>
         </div>
         <div class="field col-12 md:col-6">
             <label for="quantidade">Quantidade:</label>
-            <!-- <input class="form-control"  type="number" id="quantidade" name="quantidade" [(ngModel)]="quantidade" #atrQuantidade="ngModel" required/> -->
-            <p-inputNumber [(ngModel)]="quantidade" [useGrouping]="false"></p-inputNumber>
-            <!-- <div class="alert alert-danger" *ngIf="atrQuantidade.invalid && alert">Quantidade obrigatoria</div> -->
+            <p-inputNumber [(ngModel)]="quantidade" [useGrouping]="false" #atrQuantidade="ngModel"></p-inputNumber>
+            <div class="alert alert-danger" *ngIf="atrQuantidade.invalid && alert">Quantidade obrigatoria</div>
         </div>
         <div class="field col-1"><button class="btn btn-primary" (click)="enviar()">enviar</button></div>
         <div class="field col-11"><button class="btn btn-primary" (click)="voltar()">voltar</button></div>

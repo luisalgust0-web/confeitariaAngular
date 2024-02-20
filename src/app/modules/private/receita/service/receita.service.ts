@@ -29,7 +29,7 @@ export class AdminService {
     formData.append("Id", id);
     formData.append("Nome", nome);
     formData.append("ModoPreparo", modoPreparo);
-    formData.append("DataCadastro", dataCadastro.toISOString() );
+    formData.append("DataCadastro", dataCadastro );
     formData.append("ImagemFile", file);
 
 
@@ -54,5 +54,7 @@ export class AdminService {
       link.href = window.URL.createObjectURL(blob);
       link.click();
       });
+
+      return this.http.get(url)
   }
 }
