@@ -3,6 +3,8 @@ import { AdminService } from '../../service/receita.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Receita } from '../../models/receita';
+import { REPLCommand } from 'repl';
 
 @Component({
   selector: 'app-receita-form',
@@ -12,31 +14,42 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ReceitaFormComponent implements OnInit {
 
   alert = false;
-  id :number | null= 0;
-  nome: string | null = null;
-  modoPreparo: string | null = null;
-  dataCadastro: string | null = null;
+  receita: Receita = { dataCadastro: new Date() } as Receita;
 
   fileForm: FormGroup = this.fb.group({
     arquivoFisico: new FormControl<any>(null)
   })
 
-  constructor(private service: AdminService, private fb: FormBuilder, private messageService : MessageService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private service: AdminService, private fb: FormBuilder, private messageService: MessageService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.dataCadastro = new Date().toISOString();
+    this.obterParametrosDeRota();
 
-    const routeParams = this.route.snapshot.paramMap;
-    this.id = routeParams.get('id') ? Number(routeParams.get('id')) : null;
-
-    if(this.id != null){
-      this.service.obterReceita(this.id).subscribe( (receita:any) => {
-        this.definirReceitaValue(receita);
-      } )
-    }else{
-      this.id = 0
+    if(this.receitaExistente(this.receita)){
+      this.obterReceita();
     }
+  }
 
+  obterParametrosDeRota() {
+    const routeParams = this.route.snapshot.paramMap;
+    this.receita.id = routeParams.get('id') ? Number(routeParams.get('id')) : 0;
+  }
+
+  receitaExistente(receita: Receita): boolean {
+    if (receita.id != 0) {
+      return true;
+    }
+    return false;
+  }
+
+  obterReceita() {
+    this.service.obterReceita(this.receita.id).subscribe((receita: Receita) => {
+      this.definirReceita(receita);
+    })
+  }
+
+  definirReceita(receita: Receita) {
+    this.receita = receita;
   }
 
   uploadImage(event: any) {
@@ -49,21 +62,14 @@ export class ReceitaFormComponent implements OnInit {
   }
 
   enviarReceita() {
-    if(this.nome == null || "") this.alert = true;
-    this.service.enviarReceita(this.id, this.nome, this.modoPreparo, this.dataCadastro, this.fileForm.controls.arquivoFisico.value).subscribe( (receita : any) => {
-      this.messageService.add( {severity:'success', summary:'Sucesso', detail:'Operação Realizada com Sucesso'});
-        this.router.navigateByUrl(`Receita/editar/${receita.id}`);
-      });
+    this.service.enviarReceita(this.receita, this.fileForm.controls.arquivoFisico.value).subscribe((receita: Receita) => {
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Operação Realizada com Sucesso' });
+      this.router.navigateByUrl(`Receita/editar/${receita.id}`);
+    });
+    this.alert = true;
   }
 
-  definirReceitaValue(receita: any) {
-    this.id = receita.id;
-    this.modoPreparo = receita.modoPreparo;
-    this.nome = receita.nome;
-    this.dataCadastro = receita.dataCadastro;
-  }
-
-  voltar(){
+  voltar() {
     this.router.navigate(['Receita'])
   }
 

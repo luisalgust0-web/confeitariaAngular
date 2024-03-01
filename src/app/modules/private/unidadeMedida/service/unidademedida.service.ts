@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { UnidadeMedida } from '../models/unidade-medida';
 
 @Injectable({
   providedIn: 'root'
@@ -9,33 +10,34 @@ export class UnidademedidaService {
 
   constructor(private http:HttpClient) { }
 
-  public getLista():any{
-      var url = environment.urlApi+'/UnidadeMedida/BuscarListaUnidadeMedida';
+  public obterListaUnidadeMedida() : any {
+      var url = environment.urlApi+'/UnidadeMedida/CarregarListaUnidadeMedida';
+
       return this.http.get(url);
   }
 
-  public enviar(nome: string | null, sigla: string | null, id: number, dataCadastro : Date|null):any {
-    var url = environment.urlApi+'/UnidadeMedida/AdicionarUnidadeMedida';
+  public obterUnidadeMedida(id: number) : any {
+    var url = environment.urlApi+`/UnidadeMedida/CarregarUnidadeMedida/${id}`;
+
+    return this.http.get(url);
+}
+
+  public enviarUnidadeMedida(unidadeMedida : UnidadeMedida):any {
+    var url = environment.urlApi+'/UnidadeMedida/EnviarUnidadeMedida';
     
     var props = {
-      "id": id,
-      "nome": nome,
-      "sigla": sigla,
-      "dataCadastro": dataCadastro,
+      "id": unidadeMedida.id,
+      "nome": unidadeMedida.nome,
+      "sigla": unidadeMedida.sigla,
+      "dataCadastro": unidadeMedida.dataCadastro,
     };
     
     return this.http.post(url,props);
   }
 
-  public excluir(id: number|null,sigla: string|null,nome: string|null){
-    var url = environment.urlApi+'/UnidadeMedida/RemoverUnidadeMedida';
+  public excluirUnidadeMedida(id: number|null){
+    var url = environment.urlApi+`/UnidadeMedida/RemoverUnidadeMedida/${id}`;
 
-    var props= {
-      "id": id,
-      "sigla": sigla,
-      "nome": nome,
-    }
-
-    return this.http.post(url,props);
+    return this.http.delete(url);
   }
 }

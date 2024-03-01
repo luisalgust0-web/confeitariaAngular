@@ -41,6 +41,10 @@ export class ReceitaingredienteListaComponent implements OnInit {
     this.router.navigate([`Receita/ReceitaIngrediente/${this.receitaId}/inserir`])
   }
 
+  editarReceitaIngrediente(receitaIngredienteId:number){
+    this.router.navigate([`Receita/ReceitaIngrediente/${this.receitaId}/editar/${receitaIngredienteId}`])
+  }
+
   obterListaReceitaIngrediente(receitaId:number|null){
     this.service.obterListaReceitaIngredientePorReceitaId(receitaId).subscribe((receitaIngrediente : any[]) =>{
       this.receitaIngrediente = receitaIngrediente;

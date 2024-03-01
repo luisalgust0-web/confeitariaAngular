@@ -1,20 +1,20 @@
 <div class="card pt-3">
     <div class="grid p-fluid mt-0">
             <div class="field col-12 md:col-12">
-                <label for="nome">Nome</label>
-                <input type="text" class="form-control" name="nome" id="nome" [(ngModel)]="nome" #atrNome="ngModel" required/>
+                <label >Nome</label>
+                <input type="text" class="form-control" [(ngModel)]="unidadeMedida.nome" #atrNome="ngModel" required/>
                 <div class="alert alert-danger" *ngIf="atrNome.invalid && alert">Nome obrigatorio</div>
             </div>
             <div class="field col-12 md:col-12">
-                <label for="Sigla">Sigla</label>
-                <input type="text" class="form-control" name="sigla" id="sigla" [(ngModel)]="sigla" #atrSigla="ngModel" required/>
+                <label >Sigla</label>
+                <input type="text" class="form-control" [(ngModel)]="unidadeMedida.sigla" #atrSigla="ngModel" required/>
                 <div class="alert alert-danger" *ngIf="atrSigla.invalid && alert">sigla obrigatoria</div>
             </div>
             <div class="field col-12 md:col-12">
-                <label for="nome">Data Cadastro</label>
-                <label type="date">{{dataCadastro|date:"dd/MM/yyyy"}}</label>
+                <label >Data Cadastro</label>
+                <label type="date">{{unidadeMedida.dataCadastro|date:"dd/MM/yyyy"}}</label>
             </div>
-            <div class="field col-1"><button class="btn btn-primary" (click)="enviar()">enviar</button></div>
+            <div class="field col-1"><button class="btn btn-primary" (click)="enviarUnidadeMedida()">enviar</button></div>
             <div class="field col-11"><button class="btn btn-primary" (click)="voltar()">voltar</button></div>
     </div>
     

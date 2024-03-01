@@ -14,7 +14,7 @@ import { ReceitaingredienteListaComponent } from './receitaIngrediente/component
 import { RotinaDisparoComponent } from './rotinaDisparo/components/rotina-disparo/rotina-disparo.component';
 import { TemplateEmailAdicionarComponent } from './templateEmail/components/template-email-adicionar/template-email-adicionar.component';
 import { TemplateEmailComponent } from './templateEmail/components/template-email/template-email.component';
-import { UnidademedidaAdicionarComponent } from './unidadeMedida/components/unidademedida-adicionar/unidademedida-adicionar.component';
+import { UnidademedidaFormComponent } from './unidadeMedida/components/unidademedida-form/unidademedida-form.component';
 import { UnidademedidalistaComponent } from './unidadeMedida/components/unidademedida-lista/unidademedida-lista.component';
 import { ComponentesModule } from '../componentes.module';
 
@@ -25,7 +25,7 @@ import { ComponentesModule } from '../componentes.module';
     ReceitaFormComponent,
     IngredienteListaComponent,
     UnidademedidalistaComponent,
-    UnidademedidaAdicionarComponent,
+    UnidademedidaFormComponent,
     IngredienteFormComponent,
     ReceitaingredienteFormComponent,
     ReceitaingredienteListaComponent,

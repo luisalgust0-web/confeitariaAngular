@@ -3,7 +3,7 @@
     <div class="grid p-fluid mt-0">
         <div class="col-9 md:col-10"></div>
         <div class="col-3 md:col-2">
-            <button class="btn btn-primary" (click)="novoCadastro()">
+            <button class="btn btn-primary" (click)="inserirIngrediente()">
                 <i class="pi pi-plus pr-1"></i>
                 <span>Novo Ingrediente</span>
             </button>
@@ -28,7 +28,7 @@
                                 <i class="pi pi-pencil pr-1"></i>
                                 <span>Editar</span>
                             </button>
-                            <button class="btn btn-danger btn-sm ml-1" (click)="excluirIngrediente(ingrediente.id)">
+                            <button class="btn btn-danger btn-sm ml-1" (click)="excluirIngredienteConfirm(ingrediente.id)">
                                 <i class="pi pi-times pr-1 mt-1"></i>
                                 <span>Excluir</span>
                             </button>

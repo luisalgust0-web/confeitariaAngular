@@ -12,6 +12,7 @@ import { UnidademedidalistaComponent } from './unidadeMedida/components/unidadem
 import { IngredienteFormComponent } from './ingrediente/components/ingrediente-form/ingrediente-form.component';
 import { ReceitaFormComponent } from './receita/components/receita-form/receita-form.component';
 import { ReceitaingredienteFormComponent } from './receitaIngrediente/components/receitaingrediente-form/receitaingrediente-form.component';
+import { UnidademedidaFormComponent } from './unidadeMedida/components/unidademedida-form/unidademedida-form.component';
 
 @NgModule({
   declarations: [],
@@ -38,7 +39,14 @@ import { ReceitaingredienteFormComponent } from './receitaIngrediente/components
           {path: 'editar/:id', component: IngredienteFormComponent}
         ]
       },
-      { path: 'UnidadeMedida', component: UnidademedidalistaComponent},
+      { 
+        path: 'UnidadeMedida',
+        children:[
+          {path: '', component: UnidademedidalistaComponent},
+          {path: 'inserir', component: UnidademedidaFormComponent },
+          {path: 'editar/:id', component: UnidademedidaFormComponent }
+        ],
+      },
       { path: 'Compra', component: CompraListaComponent},
       { path: 'UsuarioAdicionar', component: UsuarioAdicionarComponent},
       { path: 'RotinaDisparo', component: RotinaDisparoComponent},

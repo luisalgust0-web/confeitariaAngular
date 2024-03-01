@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Ingrediente } from '../models/ingrediente';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,13 @@ export class IngredienteService {
 
   constructor(private http:HttpClient) { }
 
-  enviarIngrediente(id:number|null ,nome:string|null ,dataCadastro:Date|null):any {
+  enviarIngrediente(ingrediente : Ingrediente):any {
     var url = environment.urlApi+'/Ingrediente/EnviarIngrediente';
 
     var propiedades= {
-      "id": id,
-      "nome":nome,
-      "dataCadastro":dataCadastro
+      "id": ingrediente.id,
+      "nome": ingrediente.nome,
+      "dataCadastro": ingrediente.dataCadastro
     };
 
     console.log(propiedades);

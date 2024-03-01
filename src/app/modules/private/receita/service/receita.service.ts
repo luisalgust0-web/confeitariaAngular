@@ -22,14 +22,14 @@ export class AdminService {
     return this.http.get(url);
   }
 
-  public enviarReceita(id:any, nome:any, modoPreparo:any, dataCadastro:any, file : any):any {
+  public enviarReceita(receita : any, file : any):any {
     var url = environment.urlApi+'/Receita/EnviarReceita';
 
     var formData : FormData = new FormData();
-    formData.append("Id", id);
-    formData.append("Nome", nome);
-    formData.append("ModoPreparo", modoPreparo);
-    formData.append("DataCadastro", dataCadastro );
+    formData.append("Id", receita.id);
+    formData.append("Nome", receita.nome);
+    formData.append("ModoPreparo", receita.modoPreparo);
+    formData.append("DataCadastro", receita.dataCadastro );
     formData.append("ImagemFile", file);
 
 

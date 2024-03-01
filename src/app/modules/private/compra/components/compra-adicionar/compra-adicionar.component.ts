@@ -27,7 +27,7 @@ export class CompraAdicionarComponent implements OnInit {
 
   
   ngOnInit(): void {
-    this.unidadeService.getLista().subscribe((item : any) =>{
+    this.unidadeService.obterListaUnidadeMedida().subscribe((item : any) =>{
         this.unidadeMedidas = item;
     })
 

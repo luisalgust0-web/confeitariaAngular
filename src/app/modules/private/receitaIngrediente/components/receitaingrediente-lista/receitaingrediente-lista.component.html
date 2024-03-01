@@ -24,15 +24,20 @@
                 <tbody >
                     <tr *ngFor="let receitaIngrediente of receitaIngrediente;">
                         <td>{{receitaIngrediente.id}}</td>
-                        <td>{{receitaIngrediente.receitaId}}</td>
-                        <td>{{receitaIngrediente.ingredienteId}}</td>
+                        <td>{{receitaIngrediente.nomeReceita}}</td>
+                        <td>{{receitaIngrediente.nomeIngrediente}}</td>
                         <td>{{receitaIngrediente.quantidade}}</td>
-                        <td>{{receitaIngrediente.unidadeMedidaId}}</td>
+                        <td>{{receitaIngrediente.sigla}}</td>
                         <td>{{receitaIngrediente.dataCadastro}}</td>
-                        <td><button class="btn btn-sm btn-secondary text-light ml-1" aria-pressed="true" role="button" (click)="fechar()" >
-                            <i class="pi pi-file-edit"></i>
-                        </button></td>
-                        <td><button class="btn btn-danger text-light" aria-pressed="true" role="button" (click)="excluirReceitaIngrediente(receitaIngrediente.id)" >Excluir</button>
+                        <td>
+                            <button class="btn btn-primary btn-sm" (click)="editarReceitaIngrediente(receitaIngrediente.id)">
+                                <i class="pi pi-pencil pr-1"></i>
+                                <span>Editar</span>
+                            </button>
+                            <button class="btn btn-danger btn-sm ml-1" (click)="excluirReceitaIngrediente(receitaIngrediente.id)">
+                                <i class="pi pi-times pr-1 mt-1"></i>
+                                <span>Excluir</span>
+                            </button>
                         </td>
                     </tr>
                 </tbody>

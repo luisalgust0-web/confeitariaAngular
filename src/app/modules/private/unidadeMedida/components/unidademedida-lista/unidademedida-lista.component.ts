@@ -1,6 +1,9 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { UnidademedidaAdicionarComponent } from '../unidademedida-adicionar/unidademedida-adicionar.component';
 import { UnidademedidaService } from '../../service/unidademedida.service';
+import { Router } from '@angular/router';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { UnidadeMedida } from '../../models/unidade-medida';
 
 @Component({
   selector: 'app-unidademedida-lista',
@@ -9,48 +12,55 @@ import { UnidademedidaService } from '../../service/unidademedida.service';
 })
 export class UnidademedidalistaComponent implements OnInit {
 
-  cadastroVisivel = false;
-  @ViewChild(UnidademedidaAdicionarComponent)
-  unidadeAdicionarComponent!:UnidademedidaAdicionarComponent;
+  unidadeMedidas = [] as UnidadeMedida[];
 
-  itens = [] as any[];
-
-  constructor(public service:UnidademedidaService, private changedetect:ChangeDetectorRef ){}
+  constructor(
+  private service: UnidademedidaService, 
+  private router: Router,
+  private changedetect: ChangeDetectorRef,
+  private confirmationService : ConfirmationService,
+  private messageService: MessageService
+  ){}
 
   ngOnInit(): void {
-      this.service.getLista().subscribe((itens : any[]) => {
-        this.itens = itens;
-      })
+     this.obterListaUnidadeMedida();
   }
 
-  atualizarPagina(){
-    this.cadastroVisivel=true;
-    this.service.getLista().subscribe((itens : any[]) => {
-      this.itens = itens;
+  obterListaUnidadeMedida(){
+    this.service.obterListaUnidadeMedida().subscribe((unidadeMedidas : UnidadeMedida[]) => {
+      this.unidadeMedidas = unidadeMedidas;
     });
-    this.cadastroVisivel=false;
   }
 
-  selecionar(item:any){
-      this.cadastroVisivel = true;
-      this.changedetect.detectChanges();
-      this.unidadeAdicionarComponent.atualizar(item);
+  inserirUnidadeMedida(){
+    this.router.navigate(['UnidadeMedida/inserir']);
   }
 
-  novo(){
-    this.cadastroVisivel= true;
-    this.changedetect.detectChanges();
-    this.unidadeAdicionarComponent.novo();
+  editarUnidadeMedida(unidadeMedidaId: number){
+    this.router.navigate([`UnidadeMedida/editar/${unidadeMedidaId}`]);
   }
 
-  excluir(item : any){
-    this.service.excluir(item.id,item.sigla,item.nome).subscribe();
-    this.atualizarPagina();
-    this.changedetect.detectChanges();
+  excluirUnidadeMedidaConfirm(unidadeMedidaId: number){
+    this.confirmationService.confirm({
+      message: 'Confirma a exclusão do registro?',
+      header: 'Confirmação exclusão',
+      icon: 'pi pi-info-circle',
+      acceptIcon: "none",
+      rejectIcon: "none",
+      rejectButtonStyleClass: "p-button-text",
+      accept: () => {
+        this.excluirUnidadeMedida(unidadeMedidaId);
+      },
+      reject: (type: any) => {
+      },
+    });
+  }
+
+  excluirUnidadeMedida(unidadeMedidaId: number){
+    this.service.excluirUnidadeMedida(unidadeMedidaId).subscribe( (resp : any) => {
+      this.messageService.add( {severity:'success', summary:'Sucesso', detail:'Operação Realizada com Sucesso'});
+      this.obterListaUnidadeMedida();
+    });
   }
   
-  fechar(){
-    this.atualizarPagina();
-    this.changedetect.detectChanges();
-  }
 }

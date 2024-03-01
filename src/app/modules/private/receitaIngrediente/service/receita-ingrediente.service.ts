@@ -9,14 +9,14 @@ export class ReceitaIngredienteService {
   
   constructor(private http:HttpClient) { }
 
-  enviarReceitaIngrediente(id:number|null,unidadeMedidaId:number|null,receitaId:number|null,ingredienteId:number|null,quantidade:Number|null,dataCadastro:Date|null) {
-    var url= environment.urlApi+'/ReceitaIngrediente/Adicionar';
+  enviarReceitaIngrediente(id:number|null, receitaId:number|null, ingredienteId:number|null, quantidade:Number|null, unidadeMedidaId:number|null, dataCadastro:Date|null) {
+    var url= environment.urlApi+'/ReceitaIngrediente/EnviarReceitaIngrediente';
 
     var props={
       "id":id,
-      "unidadeMedidaId":unidadeMedidaId,
       "receitaId":receitaId,
       "ingredienteId":ingredienteId,
+      "unidadeMedidaId":unidadeMedidaId,
       "quantidade":quantidade,
       "dataCadastro":dataCadastro,
     }
@@ -36,10 +36,15 @@ export class ReceitaIngredienteService {
 
   obterListaReceitaIngredientePorReceitaId(receitaId:number|null):any{
 
-    var url= environment.urlApi+'/ReceitaIngrediente/ObterListaPorReceita/'+receitaId;
+    var url= environment.urlApi+'/ReceitaIngrediente/CarregarListaReceitaIngredientesPorReceitaId/'+receitaId;
 
 
     return this.http.get(url);
   }
 
+  obterReceitaIngrediente(receitaIngredienteId : number|null){
+    var url= environment.urlApi+`/ReceitaIngrediente/CarregarReceitaIngrediente/${receitaIngredienteId}`
+
+    return this.http.get(url);
+  }
 }

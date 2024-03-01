@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { IngredienteService } from '../../service/ingrediente.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { Ingrediente } from '../../models/ingrediente';
 
 @Component({
   selector: 'app-ingrediente-form',
@@ -11,42 +12,55 @@ import { MessageService } from 'primeng/api';
 export class IngredienteFormComponent implements OnInit {
 
   alert = false;
-  id: number|null = null;
-  nome:string|null=null;
-  dataCadastro:Date|null=null;
+  ingrediente: Ingrediente = { dataCadastro: new Date() } as Ingrediente;
 
-  constructor(private service:IngredienteService, private router:Router, private route:ActivatedRoute, private messageService: MessageService) { }
+  constructor(
+    private service: IngredienteService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
-    this.dataCadastro = new Date();
+    this.obterParametrosDeRota();
 
-    const routeParams = this.route.snapshot.paramMap;
-    this.id = routeParams.get('id') ? Number(routeParams.get('id')) : null;
-    
-    if(this.id != null){
-      this.service.obterIngrediente(this.id).subscribe( ( ingrediente:any ) => {
-        this.definirIngredienteValue(ingrediente);
-      })
+    if (this.ingredienteExistente()) {
+      this.obterIngrediente();
     }
 
   }
 
-  enviarIngrediente() {
-    if(this.nome == null) this.alert = true;
+  obterParametrosDeRota() {
+    const routeParams = this.route.snapshot.paramMap;
+    this.ingrediente.id = routeParams.get('id') ? Number(routeParams.get('id')) : 0;
+  }
 
-    this.service.enviarIngrediente(this.id,this.nome,this.dataCadastro).subscribe( ( ingrediente:any ) => {
-      this.messageService.add( {severity:'success', summary:'Sucesso', detail:'Operação Realizada com Sucesso'});
-      this.router.navigateByUrl(`Ingrediente/editar/${ingrediente.id}`);
+  ingredienteExistente(): boolean {
+    if (this.ingrediente.id != 0) {
+      return true;
+    }
+    return false;
+  }
+
+  obterIngrediente(){
+    this.service.obterIngrediente(this.ingrediente.id).subscribe((ingrediente: Ingrediente) => {
+      this.definirIngredienteValue(ingrediente);
     });
   }
 
-  definirIngredienteValue(ingrediente:any){
-    this.id = ingrediente.id;
-    this.nome = ingrediente.nome;
-    this.dataCadastro = ingrediente.dataCadastro;
+  definirIngredienteValue(ingrediente: Ingrediente) {
+    this.ingrediente = ingrediente;
   }
 
-  voltar(){
+  enviarIngrediente() {
+    this.service.enviarIngrediente(this.ingrediente).subscribe((ingrediente: Ingrediente) => {
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Operação Realizada com Sucesso' });
+      this.router.navigateByUrl(`Ingrediente/editar/${ingrediente.id}`);
+    });
+    this.alert = true;
+  }
+
+  voltar() {
     this.router.navigate(['/Ingrediente']);
   }
 }

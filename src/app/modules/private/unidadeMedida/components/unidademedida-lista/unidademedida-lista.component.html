@@ -1,8 +1,8 @@
 <div class="card pt-3">
-    <div class="grid p-fluid mt-0" *ngIf="!cadastroVisivel">
+    <div class="grid p-fluid mt-0" >
         <div class="col-9 md:col-10"></div>
         <div class="col-3 md:col-2">
-            <button class="btn btn-primary" (click)="novo()">
+            <button class="btn btn-primary" (click)="inserirUnidadeMedida()">
                 <i class="pi pi-plus pr-1"></i>
                 <span>Nova Unidade de Medida</span>
             </button>
@@ -19,20 +19,26 @@
                     </tr>
                 </thead>
                 <tbody >
-                    <tr *ngFor="let unidadeMedida of itens;">
+                    <tr *ngFor="let unidadeMedida of unidadeMedidas;">
                         <td>{{unidadeMedida.id}}</td>
                         <td>{{unidadeMedida.nome}}</td>
                         <td>{{unidadeMedida.sigla}}</td>
                         <td>{{unidadeMedida.dataCadastro}}</td>
-                        <td><button class="btn btn-sm btn-secondary text-light ml-1" aria-pressed="true" role="button" (click)="selecionar(unidadeMedida)">
-                            <i class="pi pi-file-edit"></i>
-                        </button></td>
-                        <td><button class="btn btn-danger text-light" aria-pressed="true" role="button" (click)="excluir(unidadeMedida)">Excluir</button>
-                        </td>
+                        <td>
+                             <button class="btn btn-primary btn-sm" (click)="editarUnidadeMedida(unidadeMedida.id)">
+                            <i class="pi pi-pencil pr-1"></i>
+                            <span>Editar</span>
+                        </button>
+                        <button class="btn btn-danger btn-sm ml-1" (click)="excluirUnidadeMedidaConfirm(unidadeMedida.id)">
+                            <i class="pi pi-times pr-1 mt-1"></i>
+                            <span>Excluir</span>
+                        </button>
+                    </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
+        <p-confirmDialog ></p-confirmDialog>
     </div>
-    <div class="field col-12 md:col-12"><app-unidademedida-adicionar *ngIf="cadastroVisivel" (onClose)="fechar()"></app-unidademedida-adicionar></div>
 </div>

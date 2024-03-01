@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   logar() {
     this.authService.autenticarRemoto(this.form.controls.nome.value, this.form.controls.senha.value).subscribe((sucesso: boolean) => {
       if (sucesso == true) {
-        this.route.navigate(['']);
+        this.route.navigate(['Receita']);
       }
     });
   }
