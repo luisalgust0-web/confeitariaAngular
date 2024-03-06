@@ -12,32 +12,46 @@ export class AdminService {
   constructor(private http:HttpClient) { }
 
   public obterListaReceitas() :any {
-    var url = environment.urlApi+'/Receita/CarregarListaReceitas';
+    var url = environment.urlApi+'/Receita/ObterListaReceitas';
     return this.http.get(url);
   }
 
   public obterReceita(id: number) :any {
-    var url = environment.urlApi+`/Receita/CarregarReceita/${id}`
+    var url = environment.urlApi+`/Receita/ObterReceita/${id}`
 
     return this.http.get(url);
   }
 
-  public enviarReceita(receita : any, file : any):any {
-    var url = environment.urlApi+'/Receita/EnviarReceita';
+  public adicionarReceita(receita : any, imagemReceita : any):any {
+    var url = environment.urlApi+'/Receita/AdicionarReceita';
 
     var formData : FormData = new FormData();
     formData.append("Id", receita.id);
     formData.append("Nome", receita.nome);
     formData.append("ModoPreparo", receita.modoPreparo);
     formData.append("DataCadastro", receita.dataCadastro );
-    formData.append("ImagemFile", file);
+    formData.append("ImagemFile", imagemReceita.imageFile);
+
+
+    return this.http.post(url,formData);
+  }
+
+  public editarReceita(receita : any, imagemReceita : any):any {
+    var url = environment.urlApi+'/Receita/EditarReceita';
+
+    var formData : FormData = new FormData();
+    formData.append("Id", receita.id);
+    formData.append("Nome", receita.nome);
+    formData.append("ModoPreparo", receita.modoPreparo);
+    formData.append("DataCadastro", receita.dataCadastro );
+    formData.append("ImagemFile", imagemReceita.imageFile);
 
 
     return this.http.post(url,formData);
   }
 
   public excluirReceita(id:number):any {
-    var url = environment.urlApi+`/Receita/ExcluirReceita/${id}`;
+    var url = environment.urlApi+`/Receita/RemoverReceita/${id}`;
 
     return this.http.delete(url);
   }

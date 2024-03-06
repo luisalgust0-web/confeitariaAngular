@@ -10,8 +10,22 @@ export class IngredienteService {
 
   constructor(private http:HttpClient) { }
 
-  enviarIngrediente(ingrediente : Ingrediente):any {
-    var url = environment.urlApi+'/Ingrediente/EnviarIngrediente';
+  adicionarIngrediente(ingrediente : Ingrediente):any {
+    var url = environment.urlApi+'/Ingrediente/AdicioanrIngrediente';
+
+    var propiedades= {
+      "id": ingrediente.id,
+      "nome": ingrediente.nome,
+      "dataCadastro": ingrediente.dataCadastro
+    };
+
+    console.log(propiedades);
+
+    return this.http.post(url,propiedades);
+  }
+
+  editarIngrediente(ingrediente : Ingrediente):any {
+    var url = environment.urlApi+'/Ingrediente/EditarIngrediente';
 
     var propiedades= {
       "id": ingrediente.id,
@@ -25,12 +39,12 @@ export class IngredienteService {
   }
 
   public obterListaIngredientes():any{
-    var url = environment.urlApi+'/Ingrediente/CarregarListaIngredientes';
+    var url = environment.urlApi+'/Ingrediente/ObterListaIngredientes';
     return this.http.get(url);
   }
 
   public obterIngrediente(id:number):any{
-    var url = environment.urlApi+`/Ingrediente/CarregarIngrediente/${id}`
+    var url = environment.urlApi+`/Ingrediente/ObterIngrediente/${id}`
 
     return this.http.get(url);
 

@@ -2,6 +2,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { AdminService } from '../../service/receita.service';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Receita } from '../../models/receita';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ReceitaListaComponent implements OnInit {
 
-  receitas = [] as any[];
+  receitas = [] as Receita[];
 
   constructor(
     public service:AdminService,
@@ -27,16 +28,16 @@ export class ReceitaListaComponent implements OnInit {
   }
 
   obterListaReceitas() {
-    this.service.obterListaReceitas().subscribe((receitas: any[]) => {
+    this.service.obterListaReceitas().subscribe((receitas: Receita[]) => {
       this.receitas = receitas;
     });
   }
 
-  novoCadastro() {
+  inserirReceita() {
     this.router.navigate(['Receita/inserir'])
   }
 
-  receitaIngrediente(receitaId: number) {
+  adicionarReceitaIngrediente(receitaId: number) {
     this.router.navigate([`Receita/ReceitaIngrediente/${receitaId}`])
   }
 
@@ -44,7 +45,7 @@ export class ReceitaListaComponent implements OnInit {
     this.router.navigate([`Receita/editar/${receitaId}`])
   }
 
-  excluirReceita(receitaId: number) {
+  excluirReceitaConfirm(receitaId: number) {
     this.confirmationService.confirm({
       message: 'Confirma a exclusão do registro?',
       header: 'Confirmação exclusão',
@@ -53,17 +54,19 @@ export class ReceitaListaComponent implements OnInit {
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",
       accept: () => {
-        this.service.excluirReceita(receitaId).subscribe(( resp: any ) => {
-          this.messageService.add( {severity:'success', summary:'Sucesso', detail:'Operação Realizada com Sucesso'});
-          this.obterListaReceitas();
-          this.changedetect.detectChanges();
-        });
+        this.excluirReceita(receitaId);
       },
       reject: (type: any) => {
       },
     });
   }
 
+  excluirReceita(receitaId : number){
+    this.service.excluirReceita(receitaId).subscribe(( resp: any ) => {
+      this.messageService.add( {severity:'success', summary:'Sucesso', detail:'Operação Realizada com Sucesso'});
+      this.obterListaReceitas();
+    });
+  }
 
 
   relatorio(item: any) {

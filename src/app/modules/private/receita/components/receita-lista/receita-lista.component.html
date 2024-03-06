@@ -3,7 +3,7 @@
     <div class="grid p-fluid mt-0" >
         <div class="col-9 md:col-10"></div>
         <div class="col-3 md:col-2">
-            <button class="btn btn-primary" (click)="novoCadastro()">
+            <button class="btn btn-primary" (click)="inserirReceita()">
                 <i class="pi pi-plus pr-1"></i>
                 <span>Nova Receita</span>
             </button>
@@ -32,12 +32,12 @@
                                 <i class="pi pi-pencil pr-1"></i>
                                 <span>Editar</span>
                             </button>
-                            <button class="btn btn-danger btn-sm ml-1" (click)="excluirReceita(receita.id)">
+                            <button class="btn btn-danger btn-sm ml-1" (click)="excluirReceitaConfirm(receita.id)">
                                 <i class="pi pi-times pr-1 mt-1"></i>
                                 <span>Excluir</span>
                             </button>
                         </td>
-                        <td><button class="btn btn-primary text-light" aria-pressed="true" role="button" (click)="receitaIngrediente(receita.id)" >Adicionar Ingrediente</button></td>
+                        <td><button class="btn btn-primary text-light" aria-pressed="true" role="button" (click)="adicionarReceitaIngrediente(receita.id)" >Adicionar Ingrediente</button></td>
                         <td><button class="btn btn-info text-light" aria-pressed="true" role="button" (click)="relatorio(receita)" >relatorio</button></td>
                     </tr>
                 </tbody>

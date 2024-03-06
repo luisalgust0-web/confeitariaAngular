@@ -1,0 +1,47 @@
+<div class="card pt-3">
+    <div class="grid p-fluid mt-0" >
+        <div class="col-9 md:col-10"></div>
+        <div class="col-3 md:col-2">
+            <button class="btn btn-primary" (click)="inserirCompraIngrediente()">
+                <i class="pi pi-plus pr-1"></i>
+                <span>Nova Compra de Ingrediente</span>
+            </button>
+        </div>
+        <div class="field col-12 md:col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Ingrediente</th>
+                        <th>Unidade Medida</th>
+                        <th>Quantidade</th>
+                        <th>Valor</th>
+                        <th>dataCompra</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let compraIngrediente of compraIngredientes;">
+                        <td>{{compraIngrediente.id}}</td>
+                        <td>{{compraIngrediente.ingredienteId}}</td>
+                        <td>{{compraIngrediente.unidadeMedidaId}}</td>z
+                        <td>{{compraIngrediente.valor}}</td>
+                        <td>{{compraIngrediente.dataCadastro}}</td>
+                        <td style="text-align:center;">
+                            <button class="btn btn-primary btn-sm"  (click)="editarCompraIngrediente(compraIngrediente.id)">
+                                <i class="pi pi-pencil pr-1"></i>
+                                <span>Editar</span>
+                            </button>
+                            <button class="btn btn-danger btn-sm ml-1"  (click)="excluirCompraIngredienteConfirm(compraIngrediente.id)">
+                                <i class="pi pi-times pr-1 mt-1"></i>
+                                <span>Excluir</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p-confirmDialog ></p-confirmDialog>
+    </div>
+</div>

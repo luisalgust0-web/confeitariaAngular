@@ -7,6 +7,10 @@ import { UnidademedidaService } from '../../../unidadeMedida/service/unidademedi
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
+import { ReceitaIngrediente } from '../../models/receita-ingrediente';
+import { Receita } from '../../../receita/models/receita';
+import { UnidadeMedida } from '../../../unidadeMedida/models/unidade-medida';
+import { Ingrediente } from '../../../ingrediente/models/ingrediente';
 
 @Component({
   selector: 'app-receitaingrediente-form',
@@ -17,73 +21,102 @@ export class ReceitaingredienteFormComponent implements OnInit {
 
   alert = false;
 
-  id :number | null= null;
-  ingredienteId:number|null=null;
-  quantidade:number|null=null;
-  unidadeMedidaId:number|null=null;
-  dataCadastro:Date|null=null;
-
-  receita : any = {};
-  unidadeMedidaItens=[] as any[];
-  ingredienteItens=[] as any[];
+  receitaIngrediente: ReceitaIngrediente = { dataCadastro : new Date() } as ReceitaIngrediente;
+  receita: Receita = {} as Receita;
+  
+  listaUnidadeMedida = [] as UnidadeMedida[];
+  listaIngrediente = [] as Ingrediente[];
 
   constructor(
-    private service:ReceitaIngredienteService,
-    private serviceUnidadeMedida:UnidademedidaService,
-    private serviceIngrediente:IngredienteService,
-    private serviceReceita:AdminService,
+    private service: ReceitaIngredienteService,
+    private serviceUnidadeMedida: UnidademedidaService,
+    private serviceIngrediente: IngredienteService,
+    private serviceReceita: AdminService,
     private route: ActivatedRoute,
     private router: Router,
     private messageService: MessageService
-    ) { }
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.obterParametrosDeRota();
 
-    this.dataCadastro = new Date();
+    if (this.receitaIngredienteExistente()) {
+      this.obterReceitaIngrediente();
+    };
 
+    this.obterListaIngrediente();
+    this.obterListaUnidadeMedida();
+    this.obterReceita();
+  }
+
+  obterParametrosDeRota() {
     const routeParams = this.route.snapshot.paramMap;
-    const receitaId = routeParams.get('receitaId') ? Number(routeParams.get('receitaId')) : null;
-    this.id = routeParams.get('id') ? Number(routeParams.get('id')) : null;
 
-    if(this.id != null){
-        this.service.obterReceitaIngrediente(this.id).subscribe( (receitaIngrediente : any) =>{
-          this.definirReceitaIngredienteValue(receitaIngrediente);
-        })
-    }else this.id = 0;
-  
+    this.receita.id = Number(routeParams.get('receitaId'));
+    this.receitaIngrediente.id = routeParams.get('id') ? Number(routeParams.get('id')) : 0;
+  }
 
-    this.serviceUnidadeMedida.obterListaUnidadeMedida().subscribe((UnidadeMedidas : any[]) => {
-      this.unidadeMedidaItens = UnidadeMedidas;
+  receitaIngredienteExistente(): boolean {
+    if (this.receitaIngrediente.id != 0) {
+      return true;
+    }
+    else return false;
+  }
+
+  obterReceitaIngrediente() {
+    this.service.obterReceitaIngrediente(this.receitaIngrediente.id).subscribe((receitaIngrediente: ReceitaIngrediente) => {
+      this.definirReceitaIngrediente(receitaIngrediente);
+    })
+  }
+
+  definirReceitaIngrediente(receitaIngrediente: ReceitaIngrediente) {
+    this.receitaIngrediente = receitaIngrediente;
+  }
+
+  obterListaUnidadeMedida(){
+    this.serviceUnidadeMedida.obterListaUnidadeMedida().subscribe((UnidadeMedidas: UnidadeMedida[]) => {
+      this.listaUnidadeMedida = UnidadeMedidas;
     });
+  }
 
-    this.serviceIngrediente.obterListaIngredientes().subscribe((ingredientes : any[]) => {
-      this.ingredienteItens = ingredientes;
+  obterListaIngrediente(){
+    this.serviceIngrediente.obterListaIngredientes().subscribe((ingredientes: Ingrediente[]) => {
+      this.listaIngrediente = ingredientes;
     });
+  }
 
-    this.serviceReceita.obterReceita(receitaId!).subscribe( (receita : any) => {
+  obterReceita(){
+    this.serviceReceita.obterReceita(this.receita.id).subscribe((receita: Receita) => {
       this.receita = receita;
-    } )
-
+    })
   }
 
-  enviarReceitaIngrediente(){
-    console.log(this.id);
-      this.service.enviarReceitaIngrediente(this.id, this.receita.id, this.ingredienteId, this.quantidade, this.unidadeMedidaId, this.dataCadastro).subscribe( (receitaIngrediente : any) =>{
-        this.messageService.add( {severity:'success', summary:'Sucesso', detail:'Operação Realizada com Sucesso'});
-        this.router.navigateByUrl(`Receita/ReceitaIngrediente/${receitaIngrediente.receitaId}/editar/${receitaIngrediente.id}`);
-      } );
-      
+  enviarReceitaIngredienteForm() {
+   if(this.receitaIngredienteExistente())
+  {
+    this.editarReceitaIngrediente();
+  }
+  else
+  {
+    this.adicionarReceitaIngrediente();
+  }
   }
 
-  definirReceitaIngredienteValue(receitaIngrediente:any){
-    this.id = receitaIngrediente.id;
-    this.receita.id = receitaIngrediente.id;
-    this.ingredienteId = receitaIngrediente.ingredienteId;
-    this.quantidade = receitaIngrediente.quantidade;
-    this.unidadeMedidaId = receitaIngrediente.unidadeMedidaId
+  adicionarReceitaIngrediente() {
+    this.service.adicioanrReceitaIngrediente(this.receitaIngrediente).subscribe((receitaIngrediente: any) => {
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Operação Realizada com Sucesso' });
+      this.router.navigateByUrl(`Receita/ReceitaIngrediente/${receitaIngrediente.receitaId}/editar/${receitaIngrediente.id}`);
+    });
   }
 
-  voltar(){
+  editarReceitaIngrediente() {
+    this.service.editarReceitaIngrediente(this.receitaIngrediente).subscribe((receitaIngrediente: any) => {
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Operação Realizada com Sucesso' });
+      this.router.navigateByUrl(`Receita/ReceitaIngrediente/${receitaIngrediente.receitaId}/editar/${receitaIngrediente.id}`);
+    });
+  }
+
+  voltar() {
     this.router.navigateByUrl(`Receita/ReceitaIngrediente/${this.receita.id}`);
   }
 }

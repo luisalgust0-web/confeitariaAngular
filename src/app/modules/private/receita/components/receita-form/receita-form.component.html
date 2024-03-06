@@ -10,15 +10,15 @@
             <textarea rows="5" class="form-control" [(ngModel)]="receita.modoPreparo" #atrModo="ngModel"></textarea>
             <div *ngIf="atrModo.invalid && alert" class="alert alert-danger alert-dismissible fade show">modo de Preparo obrigatorio</div>
         </div>
-        <div class="field col-12 md:col-12" [formGroup]="fileForm">
+        <div class="field col-12 md:col-12" >
             <label for="Imagem">Imagem:</label>        
-            <input type="file" class="file-upload" name="file" (change)="uploadImage($event)">
+            <input type="file" class="file-upload" name="file" (change)="uploadImagemReceita($event)">
         </div>
         <div class="field col-12 md:col-12">
             <label for="dataCadastro">Data Cadastro:</label>
             <label>{{receita.dataCadastro|date:"dd/MM/yyyy"}}</label>
         </div>
-        <div class="field col-1"><button class="btn btn-primary" (click)="enviarReceita()">Salvar</button></div>
+        <div class="field col-1"><button class="btn btn-primary" (click)="enviarReceitaForm()">Salvar</button></div>
         <div class="field col-11"><button class="btn btn-primary" (click)="voltar()">Voltar</button></div>
     </div>
 </div>

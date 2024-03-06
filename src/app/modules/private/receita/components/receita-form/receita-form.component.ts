@@ -5,6 +5,8 @@ import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Receita } from '../../models/receita';
 import { REPLCommand } from 'repl';
+import { ImagemReceita } from '../../models/imagem-receita';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-receita-form',
@@ -14,18 +16,20 @@ import { REPLCommand } from 'repl';
 export class ReceitaFormComponent implements OnInit {
 
   alert = false;
-  receita: Receita = { dataCadastro: new Date() } as Receita;
+  receita: Receita = { dataCadastro: new Date().toISOString() } as Receita;
+  imagemReceita: ImagemReceita = {} as ImagemReceita;
 
-  fileForm: FormGroup = this.fb.group({
-    arquivoFisico: new FormControl<any>(null)
-  })
-
-  constructor(private service: AdminService, private fb: FormBuilder, private messageService: MessageService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private service: AdminService,
+    private messageService: MessageService,
+    private router: Router,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit(): void {
     this.obterParametrosDeRota();
 
-    if(this.receitaExistente(this.receita)){
+    if(this.receitaExistente()){
       this.obterReceita();
     }
   }
@@ -35,8 +39,8 @@ export class ReceitaFormComponent implements OnInit {
     this.receita.id = routeParams.get('id') ? Number(routeParams.get('id')) : 0;
   }
 
-  receitaExistente(receita: Receita): boolean {
-    if (receita.id != 0) {
+  receitaExistente(): boolean {
+    if (this.receita.id != 0) {
       return true;
     }
     return false;
@@ -52,17 +56,34 @@ export class ReceitaFormComponent implements OnInit {
     this.receita = receita;
   }
 
-  uploadImage(event: any) {
+  uploadImagemReceita(event: any) {
     if (event.target.files.lenght != 0) {
       const file = event.target.files[0];
-      this.fileForm.controls.arquivoFisico.patchValue(file);
-    } else {
-      this.fileForm.controls.arquivoFisico.reset();
+      this.imagemReceita.imageFile = file;
     }
   }
 
-  enviarReceita() {
-    this.service.enviarReceita(this.receita, this.fileForm.controls.arquivoFisico.value).subscribe((receita: Receita) => {
+  enviarReceitaForm() {
+    if(this.receitaExistente())
+    {
+      this.editarReceita();
+    }
+    else
+    {
+      this.adicionarReceita();
+    }
+  }
+
+  adicionarReceita() {
+    this.service.adicionarReceita(this.receita, this.imagemReceita).subscribe((receita: Receita) => {
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Operação Realizada com Sucesso' });
+      this.router.navigateByUrl(`Receita/editar/${receita.id}`);
+    });
+    this.alert = true;
+  }
+
+  editarReceita() {
+    this.service.editarReceita(this.receita, this.imagemReceita).subscribe((receita: Receita) => {
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Operação Realizada com Sucesso' });
       this.router.navigateByUrl(`Receita/editar/${receita.id}`);
     });

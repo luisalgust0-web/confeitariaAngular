@@ -3,6 +3,7 @@ import { ReceitaIngredienteService } from '../../service/receita-ingrediente.ser
 import { ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Receita } from '../../../receita/models/receita';
 
 @Component({
   selector: 'app-receitaingrediente-lista',
@@ -11,47 +12,44 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class ReceitaingredienteListaComponent implements OnInit {
 
-  receitaIngrediente= [] as any[];
-
-  id=0;
-  unidadeMedidaId:number|null=null;
-  ingredienteId:number|null=null;
-  receitaId:number|null=null;
-  quantidade:number|null=null;
-  dataCadastro:Date|null=null;
+  receitaIngrediente = [] as any[];
+  receita = {} as Receita;
 
   constructor(
-    private service:ReceitaIngredienteService,
-    private changedetect:ChangeDetectorRef,
+    private service: ReceitaIngredienteService,
+    private changedetect: ChangeDetectorRef,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private router: Router
-   ) { }
+  ) { }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
+    this.obterParametrosDeRota();
+
+    this.obterListaReceitaIngredientePorReceitaId(this.receita.id);
+  }
+
+  obterParametrosDeRota() {
     const routeParams = this.route.snapshot.paramMap;
-    this.receitaId = routeParams.get('receitaId') ? Number(routeParams.get('receitaId')) : null;
-
-    this.obterListaReceitaIngrediente(this.receitaId);
-
+    this.receita.id = Number(routeParams.get('receitaId'));
   }
 
-  novoCadastro(){
-    this.router.navigate([`Receita/ReceitaIngrediente/${this.receitaId}/inserir`])
-  }
-
-  editarReceitaIngrediente(receitaIngredienteId:number){
-    this.router.navigate([`Receita/ReceitaIngrediente/${this.receitaId}/editar/${receitaIngredienteId}`])
-  }
-
-  obterListaReceitaIngrediente(receitaId:number|null){
-    this.service.obterListaReceitaIngredientePorReceitaId(receitaId).subscribe((receitaIngrediente : any[]) =>{
+  obterListaReceitaIngredientePorReceitaId(receitaId: number) {
+    this.service.obterListaReceitaIngredientePorReceitaId(receitaId).subscribe((receitaIngrediente: any[]) => {
       this.receitaIngrediente = receitaIngrediente;
-   })
+    })
   }
 
-  excluirReceitaIngrediente(receitaIngredienteId : number){
+  inserirReceitaIngrediente() {
+    this.router.navigate([`Receita/ReceitaIngrediente/${this.receita.id}/inserir`])
+  }
+
+  editarReceitaIngrediente(receitaIngredienteId: number) {
+    this.router.navigate([`Receita/ReceitaIngrediente/${this.receita.id}/editar/${receitaIngredienteId}`])
+  }
+
+  excluirReceitaIngredienteConfirm(receitaIngredienteId: number) {
     this.confirmationService.confirm({
       message: 'Confirma a exclusão do registro?',
       header: 'Confirmação exclusão',
@@ -60,19 +58,18 @@ export class ReceitaingredienteListaComponent implements OnInit {
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",
       accept: () => {
-        this.service.excluirReceitaIngrediente(receitaIngredienteId).subscribe( (res:any) => {
-          this.messageService.add( {severity:'success', summary:'Sucesso', detail:'Operação Realizada com Sucesso'});
-              this.obterListaReceitaIngrediente(this.receitaId);
-              this.changedetect.detectChanges();
-        });
+        this.excluirReceitaIngrediente(receitaIngredienteId)
       },
       reject: (type: any) => {
       },
     });
-    
   }
 
-  fechar(){
-
+  excluirReceitaIngrediente(receitaIngredienteId: number) {
+    this.service.excluirReceitaIngrediente(receitaIngredienteId).subscribe((res: any) => {
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Operação Realizada com Sucesso' });
+      this.obterListaReceitaIngredientePorReceitaId(this.receita.id);
+    });
   }
+
 }

@@ -11,19 +11,32 @@ export class UnidademedidaService {
   constructor(private http:HttpClient) { }
 
   public obterListaUnidadeMedida() : any {
-      var url = environment.urlApi+'/UnidadeMedida/CarregarListaUnidadeMedida';
+      var url = environment.urlApi+'/UnidadeMedida/ObterListaUnidadeMedidas';
 
       return this.http.get(url);
   }
 
   public obterUnidadeMedida(id: number) : any {
-    var url = environment.urlApi+`/UnidadeMedida/CarregarUnidadeMedida/${id}`;
+    var url = environment.urlApi+`/UnidadeMedida/ObterUnidadeMedida/${id}`;
 
     return this.http.get(url);
 }
 
-  public enviarUnidadeMedida(unidadeMedida : UnidadeMedida):any {
-    var url = environment.urlApi+'/UnidadeMedida/EnviarUnidadeMedida';
+  public adicionarUnidadeMedida(unidadeMedida : UnidadeMedida):any {
+    var url = environment.urlApi+'/UnidadeMedida/AdicionarUnidadeMedida';
+    
+    var props = {
+      "id": unidadeMedida.id,
+      "nome": unidadeMedida.nome,
+      "sigla": unidadeMedida.sigla,
+      "dataCadastro": unidadeMedida.dataCadastro,
+    };
+    
+    return this.http.post(url,props);
+  }
+
+  public editarUnidadeMedida(unidadeMedida : UnidadeMedida):any {
+    var url = environment.urlApi+'/UnidadeMedida/EditarUnidadeMedida';
     
     var props = {
       "id": unidadeMedida.id,

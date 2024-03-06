@@ -27,7 +27,7 @@ export class UnidademedidaFormComponent implements OnInit {
   ngOnInit(): void {
     this.obterParametrosDeRota()
 
-    if (this.unidadeMedidaExistente(this.unidadeMedida)) {
+    if (this.unidadeMedidaExistente()) {
       this.obterUnidadeMedida();
     }
   }
@@ -37,8 +37,8 @@ export class UnidademedidaFormComponent implements OnInit {
     this.unidadeMedida.id = routeParams.get('id') ? Number(routeParams.get('id')) : 0;
   }
 
-  unidadeMedidaExistente(unidadeMedida: UnidadeMedida): boolean {
-    if (unidadeMedida.id != 0) {
+  unidadeMedidaExistente(): boolean {
+    if (this.unidadeMedida.id != 0) {
       return true;
     }
     return false;
@@ -54,12 +54,26 @@ export class UnidademedidaFormComponent implements OnInit {
     this.unidadeMedida = unidadeMedida;
   }
 
-  enviarUnidadeMedida() {
-    this.service.enviarUnidadeMedida(this.unidadeMedida).subscribe((unidadeMedida: UnidadeMedida) => {
+  enviarUnidadeMedidaForm(){
+    if(this.unidadeMedidaExistente()){
+      this.adicionarUnidadeMedida();
+    }else{
+      this.editarUnidadeMedida();
+    }
+  }
+
+  adicionarUnidadeMedida(){
+    this.service.adicionarUnidadeMedida(this.unidadeMedida).subscribe((unidadeMedida: UnidadeMedida) => {
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Operação Realizada com Sucesso' });
       this.router.navigateByUrl(`UnidadeMedida/editar/${unidadeMedida.id}`)
     });
-    this.alert = true;
+  }
+
+  editarUnidadeMedida(){
+    this.service.editarUnidadeMedida(this.unidadeMedida).subscribe((unidadeMedida: UnidadeMedida) => {
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Operação Realizada com Sucesso' });
+      this.router.navigateByUrl(`UnidadeMedida/editar/${unidadeMedida.id}`)
+    });
   }
 
   voltar() {

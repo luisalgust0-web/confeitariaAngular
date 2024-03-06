@@ -52,8 +52,27 @@ export class IngredienteFormComponent implements OnInit {
     this.ingrediente = ingrediente;
   }
 
-  enviarIngrediente() {
-    this.service.enviarIngrediente(this.ingrediente).subscribe((ingrediente: Ingrediente) => {
+  enviarIngredienteForm(){
+    if(this.ingredienteExistente())
+    {
+      this.editarIngrediente();
+    }
+    else
+    {
+      this.adicionarIngrediente();
+    }
+  }
+
+  adicionarIngrediente() {
+    this.service.adicionarIngrediente(this.ingrediente).subscribe((ingrediente: Ingrediente) => {
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Operação Realizada com Sucesso' });
+      this.router.navigateByUrl(`Ingrediente/editar/${ingrediente.id}`);
+    });
+    this.alert = true;
+  }
+
+  editarIngrediente() {
+    this.service.editarIngrediente(this.ingrediente).subscribe((ingrediente: Ingrediente) => {
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Operação Realizada com Sucesso' });
       this.router.navigateByUrl(`Ingrediente/editar/${ingrediente.id}`);
     });

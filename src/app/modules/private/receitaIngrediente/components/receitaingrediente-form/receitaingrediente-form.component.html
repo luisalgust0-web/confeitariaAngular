@@ -6,34 +6,33 @@
                 <input class="form-control" type="text" value="{{receita.nome!}}" [disabled]="true" />
             </div>
             <div class="field col-12 md:col-12">
-                <label for="ingredienteId">Ingrediente:</label>
-                <select class="form-select" id="ingredienteId" name="ingredienteId" [(ngModel)]="ingredienteId"
-                    #atrIngrediente="ngModel" required>
-                    <option *ngFor="let ingrediente of ingredienteItens" value="{{ingrediente.id}}">{{ingrediente.nome}}
+                <label >Ingrediente:</label>
+                <select class="form-select" [(ngModel)]="receitaIngrediente.ingredienteId" #atrIngrediente="ngModel" required>
+                    <option *ngFor="let ingrediente of listaIngrediente" value="{{ingrediente.id}}">
+                        {{ingrediente.nome}}
                     </option>
                 </select>
                 <div class="alert alert-danger" *ngIf="atrIngrediente.invalid && alert">Ingrediente obrigatorio</div>
             </div>
             <div class="row">
                 <div class="field col-6 md:col-6">
-                    <label for="quantidade">Quantidade:</label>
-                    <p-inputNumber [(ngModel)]="quantidade" [useGrouping]="false"
-                        #atrQuantidade="ngModel"></p-inputNumber>
+                    <label >Quantidade:</label>
+                    <p-inputNumber [(ngModel)]="receitaIngrediente.quantidade" [useGrouping]="false" #atrQuantidade="ngModel"></p-inputNumber>
                     <div class="alert alert-danger" *ngIf="atrQuantidade.invalid && alert">Quantidade obrigatoria</div>
                 </div>
                 <div class="field col-6 md:col-6">
-                    <label for="unidadeMedidaId">Unidade Medida:</label>
-                    <select class="form-select" id="unidadeMedidaId" name="unidadeMedidaId"
-                        [(ngModel)]="unidadeMedidaId" #atrUnidade="ngModel" required>
-                        <option *ngFor="let unidadeMedida of unidadeMedidaItens" value="{{unidadeMedida.id}}">
-                            {{unidadeMedida.sigla}}</option>
+                    <label >Unidade Medida:</label>
+                    <select class="form-select" [(ngModel)]="receitaIngrediente.unidadeMedidaId" #atrUnidade="ngModel" required>
+                        <option *ngFor="let unidadeMedida of listaUnidadeMedida" value="{{unidadeMedida.id}}">
+                            {{unidadeMedida.sigla}}
+                        </option>
                     </select>
                     <div class="alert alert-danger" *ngIf="atrUnidade.invalid && alert">Unidade Medida obrigatoria</div>
                 </div>
             </div>
         </div>
 
-        <div class="field col-1"><button class="btn btn-primary" (click)="enviarReceitaIngrediente()">enviar</button>
+        <div class="field col-1"><button class="btn btn-primary" (click)="enviarReceitaIngredienteForm()">enviar</button>
         </div>
         <div class="field col-11"><button class="btn btn-primary" (click)="voltar()">voltar</button></div>
     </div>

@@ -1,0 +1,28 @@
+<div class="grid p-fluid mt-0" >
+    <div class="col-12 md:col-12">
+        <label for="ingredienteId">Ingrediente</label>
+        <select class="form-control" [(ngModel)]="compraIngrediente.ingredienteId">
+            <option *ngFor="let ingrediente of listaIngredientes" value="{{ingrediente.id}}" >{{ingrediente.nome}}</option>
+        </select>
+    </div>
+    <div class="col-12 md:col-12">
+        <label for="unidadeMedidaId">unidade Medida:</label>
+        <select class="form-control" [(ngModel)]="compraIngrediente.unidadeMedidaId">
+            <option *ngFor="let unidadeMedida of listaUnidadeMedidas" value="{{unidadeMedida.id}}" >{{unidadeMedida.nome}}</option>
+        </select>
+    </div>
+    <div class="col-12 md:col-12">
+        <label for="quantidade">Quantidade:</label>
+        <input class="form-control" type="number" value="quantidade" [(ngModel)]="compraIngrediente.quantidade">
+    </div>
+    <div class="col-12 md:col-12">
+        <label for="valor">Valor:</label>
+        <input class="form-control" type="number" value="valor" [(ngModel)]="compraIngrediente.valor">
+    </div>
+    <div class="col-12 md:col-12">
+        <label >Data da Compra:</label>
+        <label>{{compraIngrediente.dataCadastro|date:"dd/MM/yyyy"}}</label>
+    </div>
+    <div class="field col-1 "><button class="btn btn-primary" (click)="enviarCompraIngredienteForm()">enviar</button></div>
+    <div class="field col-11"><button class="btn btn-primary" (click)="voltar()">voltar</button></div>
+</div>

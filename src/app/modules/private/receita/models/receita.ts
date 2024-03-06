@@ -1,6 +1,6 @@
 export interface Receita {
     id: number
     nome: string
-    dataCadastro: Date
+    dataCadastro: string
     modoPreparo: string
 }
